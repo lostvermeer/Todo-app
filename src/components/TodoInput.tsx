@@ -1,8 +1,54 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { debounce } from 'lodash';
 import useTodoContext from '../hooks/useTodoContext';
-import { TextField, Button, Box } from '@mui/material';
+
+const FormContainer = styled.form`
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  padding: 10px;
+`;
+
+const InputField = styled.input`
+  flex: 1;
+  padding: 10px;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+
+  &:hover {
+    border-bottom: 2px solid #4caf50;
+  }
+
+  &:focus {
+    border-bottom: 2px solid #4caf50;
+  }
+`;
+
+const AddButton = styled.button`
+  color: #4caf50;
+  background-color: transparent;
+  border: 2px solid #ddd;
+  padding: 10px 15px;
+  margin-left: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+
+  &:hover {
+    border-color: #4caf50;
+  }
+`;
 
 const TodoInput: React.FC = () => {
   const { register, handleSubmit, reset } = useForm<{ todoText: string }>();
@@ -13,48 +59,16 @@ const TodoInput: React.FC = () => {
       dispatch({ type: 'ADD_TODO', payload: data.todoText });
       reset();
     }
-  }, 300);
+  }, 100);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          marginBottom: '20px',
-          marginTop: '10px',
-        }}
-      >
-        <TextField
-          {...register('todoText')}
-          label="What needs to be done?"
-          variant="standard"
-          size="small"
-          fullWidth
-          sx={{
-            flex: 1,
-            borderRadius: '5px',
-            backgroundColor: '#fff',
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: '#ccc',
-              },
-              '&:hover fieldset': {
-                borderColor: '#aaa',
-              },
-            },
-          }}
-        />
-        <Button
-          type="submit"
-          variant="text"
-          color="primary"
-          sx={{ marginLeft: '10px' }}
-        >
-          Add
-        </Button>
-      </Box>
-    </form>
+    <FormContainer onSubmit={handleSubmit(onSubmit)}>
+      <InputField
+        {...register('todoText')}
+        placeholder="What needs to be done?"
+      />
+      <AddButton type="submit">✓</AddButton>
+    </FormContainer>
   );
 };
 

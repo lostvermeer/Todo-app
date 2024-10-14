@@ -1,54 +1,52 @@
-// import React from 'react';
-// import useTodoContext from '../hooks/useTodoContext';
-// import { Button, Typography } from '@mui/material';
-
-// const TodoFooter: React.FC = () => {
-//   const { state, dispatch } = useTodoContext();
-//   const { incompleteCount, hasCompletedTodos } = state.todos.reduce(
-//     (counts, todo) => {
-//       if (todo.completed) {
-//         counts.hasCompletedTodos = true;
-//       } else {
-//         counts.incompleteCount++;
-//       }
-//       return counts;
-//     },
-//     { incompleteCount: 0, hasCompletedTodos: false }
-//   );
-
-//   const handleClearCompleted = () => {
-//     dispatch({ type: 'CLEAR_COMPLETED' });
-//   };
-
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         justifyContent: 'space-between',
-//         padding: '16px',
-//       }}
-//     >
-//       <Typography variant="button">
-//         {incompleteCount} {incompleteCount <= 1 ? 'item left' : 'items left'}
-//       </Typography>
-//       <Button
-//         variant="text"
-//         color="primary"
-//         onClick={handleClearCompleted}
-//         disabled={!hasCompletedTodos}
-//       >
-//         {hasCompletedTodos ? 'Clear' : 'Clear completed'}
-//       </Button>
-//     </div>
-//   );
-// };
-
-// export default TodoFooter;
-
 import React from 'react';
+import styled from 'styled-components';
 import useTodoContext from '../hooks/useTodoContext';
-import Grid from '@mui/material/Grid2';
-import { BottomNavigation, Box, Button, Typography } from '@mui/material';
+
+const FooterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #e0e0e0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #777;
+`;
+
+const ItemsLeft = styled.span`
+  flex: 1;
+  text-align: left;
+`;
+
+const FilterButtons = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const FilterButton = styled.button<{ selected: boolean }>`
+  background: none;
+  border: none;
+  color: ${(props) => (props.selected ? '#333' : '#777')};
+  cursor: pointer;
+  border: ${(props) =>
+    props.selected ? '1px solid rgba(175, 47, 47, 0.2)' : 'none'};
+  border-radius: 3px;
+  padding: 3px 5px;
+`;
+
+const ClearCompletedButton = styled.button`
+  background: none;
+  border: none;
+  color: #777;
+  cursor: pointer;
+  flex: 1;
+  text-align: right;
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+`;
 
 const TodoFooter: React.FC = () => {
   const { state, dispatch } = useTodoContext();
@@ -72,88 +70,38 @@ const TodoFooter: React.FC = () => {
     dispatch({ type: 'SET_FILTER', payload: filter });
   };
 
-  // Extracted button styles and variant logic
-  const buttonStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    margin: 'auto',
-  };
-
   return (
-    <Grid container columnSpacing={0}>
-      <Box
-        sx={{
-          position: 'static',
-          bottom: 0,
-          width: '100%',
-          backgroundColor: '#f5f5f5',
-          borderTop: '1px solid #e0e0e0',
-        }}
+    <FooterContainer>
+      <ItemsLeft>
+        {incompleteCount} {incompleteCount <= 1 ? 'item left' : 'items left'}
+      </ItemsLeft>
+      <FilterButtons>
+        <FilterButton
+          onClick={() => handleFilterChange('all')}
+          selected={state.filter === 'all'}
+        >
+          All
+        </FilterButton>
+        <FilterButton
+          onClick={() => handleFilterChange('active')}
+          selected={state.filter === 'active'}
+        >
+          Active
+        </FilterButton>
+        <FilterButton
+          onClick={() => handleFilterChange('completed')}
+          selected={state.filter === 'completed'}
+        >
+          Completed
+        </FilterButton>
+      </FilterButtons>
+      <ClearCompletedButton
+        onClick={handleClearCompleted}
+        disabled={!hasCompletedTodos}
       >
-        <BottomNavigation showLabels sx={{ alignItems: 'center' }}>
-          <Grid size="grow">
-            <Typography
-              variant="button"
-              sx={{
-                marginRight: 'auto',
-                paddingLeft: 2,
-                display: 'flex',
-                alignItems: 'center',
-                height: '100%',
-              }}
-            >
-              {incompleteCount}
-              {incompleteCount <= 1 ? ' item left' : ' items left'}
-            </Typography>
-          </Grid>
-          <Grid size={1}>
-            <Button
-              onClick={() => handleFilterChange('all')}
-              variant={state.filter === 'all' ? 'outlined' : 'text'}
-              sx={{ ...buttonStyles }}
-            >
-              All
-            </Button>
-          </Grid>
-          <Grid size={1}>
-            <Button
-              onClick={() => handleFilterChange('active')}
-              variant={state.filter === 'active' ? 'outlined' : 'text'}
-              sx={{ ...buttonStyles }}
-            >
-              Active
-            </Button>
-          </Grid>
-          <Grid size={2}>
-            <Button
-              onClick={() => handleFilterChange('completed')}
-              variant={state.filter === 'completed' ? 'outlined' : 'text'}
-              sx={{ ...buttonStyles }}
-            >
-              Completed
-            </Button>
-          </Grid>
-          <Grid size="grow">
-            <Button
-              variant="text"
-              color="primary"
-              onClick={handleClearCompleted}
-              disabled={!hasCompletedTodos}
-              sx={{
-                paddingLeft: 2,
-                display: 'flex',
-                alignItems: 'center',
-                marginLeft: 'auto',
-                marginRight: 2,
-                minWidth: '110px',
-              }}
-            >
-              {hasCompletedTodos ? 'Clear completed' : 'Clear'}
-            </Button>
-          </Grid>
-        </BottomNavigation>
-      </Box>
-    </Grid>
+        {hasCompletedTodos ? 'Clear' : 'Clear completed'}
+      </ClearCompletedButton>
+    </FooterContainer>
   );
 };
 
