@@ -17,11 +17,18 @@ const TodoInput: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '20px',
+          marginTop: '10px',
+        }}
+      >
         <TextField
           {...register('todoText')}
           label="What needs to be done?"
-          variant="outlined"
+          variant="standard"
           size="small"
           fullWidth
           sx={{

@@ -83,7 +83,7 @@ const TodoFooter: React.FC = () => {
     <Grid container columnSpacing={0}>
       <Box
         sx={{
-          position: 'sticky',
+          position: 'static',
           bottom: 0,
           width: '100%',
           backgroundColor: '#f5f5f5',
@@ -145,7 +145,7 @@ const TodoFooter: React.FC = () => {
                 alignItems: 'center',
                 marginLeft: 'auto',
                 marginRight: 2,
-                minWidth: '110px', // Fix the width to prevent resizing
+                minWidth: '110px',
               }}
             >
               {hasCompletedTodos ? 'Clear completed' : 'Clear'}

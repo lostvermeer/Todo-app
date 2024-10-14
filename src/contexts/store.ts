@@ -29,4 +29,29 @@ export const data = [
     title: 'Write code',
     completed: false,
   },
+  {
+    id: '6',
+    title: 'Write code',
+    completed: false,
+  },
+  {
+    id: '6',
+    title: 'Write code',
+    completed: false,
+  },
+  {
+    id: '6',
+    title: 'Write code',
+    completed: false,
+  },
+  {
+    id: '6',
+    title: 'Write code',
+    completed: false,
+  },
+  {
+    id: '6',
+    title: 'Write code',
+    completed: false,
+  },
 ];

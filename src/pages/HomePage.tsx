@@ -5,7 +5,6 @@ const HomePage: React.FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#f5f5f5',
         padding: '20px',
         minHeight: '78vh',
         maxHeight: '78vh',
