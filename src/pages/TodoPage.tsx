@@ -14,7 +14,7 @@ const TodosPage: React.FC = () => {
       }}
     >
       <Typography variant="h2" color="inherit">
-        Todos Page
+        todos
       </Typography>
       <br />
       <TodoInput />
