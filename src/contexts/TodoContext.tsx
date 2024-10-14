@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, ReactNode, Dispatch } from 'react';
+import { data } from './store';
 
 export interface Todo {
   id: string;
@@ -8,13 +9,15 @@ export interface Todo {
 
 interface State {
   todos: Todo[];
+  filter: 'all' | 'active' | 'completed';
 }
 
 type Action =
   | { type: 'ADD_TODO'; payload: string }
   | { type: 'TOGGLE_TODO'; payload: string }
   | { type: 'DELETE_TODO'; payload: string }
-  | { type: 'CLEAR_COMPLETED' };
+  | { type: 'CLEAR_COMPLETED' }
+  | { type: 'SET_FILTER'; payload: 'all' | 'active' | 'completed' };
 
 export interface TodoContextProps {
   state: State;
@@ -22,7 +25,8 @@ export interface TodoContextProps {
 }
 
 const initialState: State = {
-  todos: [],
+  todos: data,
+  filter: 'all',
 };
 
 const todoReducer = (state: State, action: Action): State => {
@@ -57,6 +61,11 @@ const todoReducer = (state: State, action: Action): State => {
       return {
         ...state,
         todos: state.todos.filter((todo) => !todo.completed),
+      };
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload,
       };
     default:
       return state;
