@@ -65,7 +65,7 @@ const TodoInput: React.FC = () => {
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <InputField
         {...register('todoText')}
-        placeholder="What needs to be done?"
+        placeholder="what needs to be done?"
       />
       <AddButton type="submit">✓</AddButton>
     </FormContainer>

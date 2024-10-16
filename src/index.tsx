@@ -1,10 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import { TodoProvider } from './contexts/TodoContext';
 
 const rootElement = document.getElementById('root');
-const root = ReactDOM.createRoot(rootElement as HTMLElement);
+if (rootElement === null) {
+  throw new Error('Root container missing in index.html');
+}
+
+const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>

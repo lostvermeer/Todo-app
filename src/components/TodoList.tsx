@@ -36,7 +36,9 @@ const TodoList: React.FC = () => {
           <TodoItem key={todo.id} todo={todo} />
         ))
       ) : (
-        <NoTodosContainer>No todos available.</NoTodosContainer>
+        <NoTodosContainer data-testid="noTodos">
+          No todos available.
+        </NoTodosContainer>
       )}
     </ListContainer>
   );

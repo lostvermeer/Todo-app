@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, ReactNode, Dispatch } from 'react';
-import { data } from './store';
+import { data } from './mockData';
 
 export interface Todo {
   id: string;
@@ -7,12 +7,12 @@ export interface Todo {
   completed: boolean;
 }
 
-interface State {
+export interface State {
   todos: Todo[];
   filter: 'all' | 'active' | 'completed';
 }
 
-type Action =
+export type Action =
   | { type: 'ADD_TODO'; payload: string }
   | { type: 'TOGGLE_TODO'; payload: string }
   | { type: 'DELETE_TODO'; payload: string }
@@ -24,12 +24,12 @@ export interface TodoContextProps {
   dispatch: Dispatch<Action>;
 }
 
-const initialState: State = {
+export const initialState: State = {
   todos: data,
   filter: 'all',
 };
 
-const todoReducer = (state: State, action: Action): State => {
+export const todoReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'ADD_TODO':
       return {

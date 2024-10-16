@@ -77,7 +77,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
 
   return (
     <TodoItemContainer>
-      <TodoCheckbox completed={todo.completed} onClick={handleToggleTodo} />
+      <TodoCheckbox
+        data-testid="checkbox"
+        completed={todo.completed}
+        onClick={handleToggleTodo}
+      />
       <TodoText completed={todo.completed}>{todo.title}</TodoText>
       <DeleteButton onClick={handleDeleteTodo}>×</DeleteButton>
     </TodoItemContainer>
