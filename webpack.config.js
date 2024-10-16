@@ -1,28 +1,31 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development', // Change to 'production' for production builds
-  entry: './src/index.tsx', // Your main entry point
+  mode: 'development',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    clean: true, // Clean the output directory before each build
+    clean: true,
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx'], // File extensions to resolve
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/i, // Matches .ts and .tsx files
+        test: /\.(ts|tsx)$/i,
         exclude: ['/node_modules/'],
         use: {
           loader: 'ts-loader',
           options: {
             compilerOptions: {
-              noEmit: false, // this option will solve the issue
+              noEmit: false,
             },
           },
         },
@@ -43,19 +46,21 @@ module.exports = {
       },
       {
         test: /\.css|\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'], // Add loaders for CSS/SCSS
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
-  devtool: 'inline-source-map', // Source map support for debugging
+  devtool: 'inline-source-map',
   devServer: {
-    static: './dist', // Serve files from the dist directory
-    hot: true, // Enable hot module replacement
+    static: './dist',
+    hot: true,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html', // Path to your HTML template
+      template: './index.html',
+      inject: true,
     }),
-    new CleanWebpackPlugin(), // Automatically clean the output directory before each build
+    new CleanWebpackPlugin(),
   ],
 };
