@@ -2,6 +2,11 @@
   "name": "todo-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://lostvermeer.github.io/Table-Pro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lostvermeer/Table-Pro.git"
+  },
   "dependencies": {
     "@testing-library/user-event": "^13.5.0",
     "@types/node": "^16.18.113",
@@ -22,7 +27,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./**/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint ./**/*.{js,jsx,ts,tsx} --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +68,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.1",
+    "gh-pages": "^6.2.0",
     "globals": "^15.11.0",
     "html-webpack-plugin": "^5.6.0",
     "jest": "^27.5.1",
