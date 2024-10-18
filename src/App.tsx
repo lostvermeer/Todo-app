@@ -5,7 +5,7 @@ import TodoPage from './pages/TodoPage';
 const App: React.FC = () => {
   return (
     // <BrowserRouter>
-    <BrowserRouter basename="/Todo-app">
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<TodoPage />} />
       </Routes>

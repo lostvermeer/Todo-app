@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import useTodoContext from '../hooks/useTodoContext';
 
 const FormContainer = styled.form`

@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/lostvermeer/Table-Pro.git"
   },
+  "type": "module",
   "dependencies": {
     "@testing-library/user-event": "^13.5.0",
     "@types/node": "^16.18.113",
@@ -22,12 +23,13 @@
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development --node-env=development",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./**/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint ./**/*.{js,jsx,ts,tsx} --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "format": "prettier --write './**/*.{js,mjs,jsx,ts,tsx,json,css,scss,md}'",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

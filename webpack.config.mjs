@@ -1,16 +1,15 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require('path');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-module.exports = {
-  mode: 'development',
+const isProduction = process.env.NODE_ENV === 'production';
+
+const config = {
+  mode: isProduction ? 'production' : 'development',
   entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    path: path.resolve(process.cwd(), 'dist'),
+    filename: '[name].[contenthash].js',
     clean: true,
   },
   resolve: {
@@ -50,7 +49,7 @@ module.exports = {
       },
     ],
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     static: './dist',
     hot: true,
@@ -64,3 +63,5 @@ module.exports = {
     new CleanWebpackPlugin(),
   ],
 };
+
+export default config;
