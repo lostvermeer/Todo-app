@@ -33,11 +33,11 @@ npm run test
 
 ### Future direction
 
-Set the proper typing for the components
-Refactor Login page
-Add cases to the test
-Optimze webpack
-Enhance error handling in TodoInput
+- Set the proper typing for the components
+- Refactor Login page
+- Add cases to the test
+- ~~Optimize webpack~~ ✔
+- Enhance error handling in TodoInput
 
 If you have questions please write me an email:
 
