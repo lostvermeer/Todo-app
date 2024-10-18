@@ -42,6 +42,46 @@ describe('TodoList', () => {
     expect(screen.getByText('Todo 3')).toBeInTheDocument();
   });
 
+  it('renders completed todos when filter is set to "completed"', () => {
+    setupMock(
+      [
+        { id: '1', title: 'Todo 1', completed: true },
+        { id: '2', title: 'Todo 2', completed: true },
+        { id: '3', title: 'Todo 3', completed: false },
+      ],
+      'completed'
+    );
+    render(
+      <TodoProvider>
+        <TodoList />
+      </TodoProvider>
+    );
+
+    expect(screen.getByText('Todo 1')).toBeInTheDocument();
+    expect(screen.getByText('Todo 2')).toBeInTheDocument();
+    expect(screen.queryByText('Todo 3')).not.toBeInTheDocument();
+  });
+
+  it('renders active todos when filter is set to "active"', () => {
+    setupMock(
+      [
+        { id: '1', title: 'Todo 1', completed: true },
+        { id: '2', title: 'Todo 2', completed: true },
+        { id: '3', title: 'Todo 3', completed: false },
+      ],
+      'active'
+    );
+    render(
+      <TodoProvider>
+        <TodoList />
+      </TodoProvider>
+    );
+
+    expect(screen.queryByText('Todo 1')).not.toBeInTheDocument();
+    expect(screen.queryByText('Todo 2')).not.toBeInTheDocument();
+    expect(screen.getByText('Todo 3')).toBeInTheDocument();
+  });
+
   it('renders the "No todos available" message when there are no todos', () => {
     setupMock([], 'all');
     render(

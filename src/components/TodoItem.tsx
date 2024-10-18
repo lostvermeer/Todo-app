@@ -7,6 +7,31 @@ interface TodoItemProps {
   todo: Todo;
 }
 
+const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+  const { dispatch } = useTodoContext();
+
+  const handleToggleTodo = () => {
+    dispatch({ type: 'TOGGLE_TODO', payload: todo.id });
+  };
+
+  const handleDeleteTodo = () => {
+    dispatch({ type: 'DELETE_TODO', payload: todo.id });
+  };
+
+  return (
+    <TodoItemContainer>
+      <TodoCheckbox
+        data-testid="checkbox"
+        completed={todo.completed.toString()}
+        onClick={handleToggleTodo}
+      />
+      <TodoText completed={todo.completed.toString()}>{todo.title}</TodoText>
+      <DeleteButton onClick={handleDeleteTodo}>×</DeleteButton>
+    </TodoItemContainer>
+  );
+};
+
+// Styled components
 const TodoItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -15,7 +40,7 @@ const TodoItemContainer = styled.div`
   padding: 10px;
 `;
 
-const TodoCheckbox = styled.div<{ completed: boolean }>`
+const TodoCheckbox = styled.div<{ completed: string }>`
   width: 24px;
   height: 24px;
   border: 2px solid #ddd;
@@ -33,16 +58,17 @@ const TodoCheckbox = styled.div<{ completed: boolean }>`
   }
 
   &::after {
-    content: ${({ completed }) => (completed ? "'✓'" : "''")};
+    content: ${({ completed }) => (completed === 'true' ? "'✓'" : "''")};
     color: #4caf50;
     font-size: 16px;
-    display: ${({ completed }) => (completed ? 'block' : 'none')};
+    display: ${({ completed }) => (completed === 'true' ? 'block' : 'none')};
   }
 `;
 
-const TodoText = styled.span<{ completed: boolean }>`
-  text-decoration: ${({ completed }) => (completed ? 'line-through' : 'none')};
-  color: ${({ completed }) => (completed ? '#aaa' : '#4d4d4d')};
+const TodoText = styled.span<{ completed: string }>`
+  text-decoration: ${({ completed }) =>
+    completed === 'true' ? 'line-through' : 'none'};
+  color: ${({ completed }) => (completed === 'true' ? '#aaa' : '#4d4d4d')};
   flex-grow: 1;
   padding-left: 15px;
   font-size: 18px; /* Adjusted font size to match the design */
@@ -63,29 +89,5 @@ const DeleteButton = styled.button`
     text-shadow: 0 0 1px #af5b5e;
   }
 `;
-
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
-  const { dispatch } = useTodoContext();
-
-  const handleToggleTodo = () => {
-    dispatch({ type: 'TOGGLE_TODO', payload: todo.id });
-  };
-
-  const handleDeleteTodo = () => {
-    dispatch({ type: 'DELETE_TODO', payload: todo.id });
-  };
-
-  return (
-    <TodoItemContainer>
-      <TodoCheckbox
-        data-testid="checkbox"
-        completed={todo.completed}
-        onClick={handleToggleTodo}
-      />
-      <TodoText completed={todo.completed}>{todo.title}</TodoText>
-      <DeleteButton onClick={handleDeleteTodo}>×</DeleteButton>
-    </TodoItemContainer>
-  );
-};
 
 export default TodoItem;

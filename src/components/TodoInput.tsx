@@ -4,6 +4,28 @@ import { useForm } from 'react-hook-form';
 import debounce from 'lodash/debounce';
 import useTodoContext from '../hooks/useTodoContext';
 
+const TodoInput: React.FC = () => {
+  const { register, handleSubmit, reset } = useForm<{ todoText: string }>();
+  const { dispatch } = useTodoContext();
+
+  const onSubmit = debounce((data: { todoText: string }) => {
+    if (data.todoText.trim() !== '') {
+      dispatch({ type: 'ADD_TODO', payload: data.todoText });
+      reset();
+    }
+  }, 100);
+
+  return (
+    <FormContainer onSubmit={handleSubmit(onSubmit)}>
+      <InputField
+        {...register('todoText')}
+        placeholder="what needs to be done?"
+      />
+      <AddButton type="submit">✓</AddButton>
+    </FormContainer>
+  );
+};
+
 const FormContainer = styled.form`
   display: flex;
   align-items: center;
@@ -33,6 +55,7 @@ const InputField = styled.input`
   }
 `;
 
+// Styled components
 const AddButton = styled.button`
   color: #4caf50;
   background-color: transparent;
@@ -49,27 +72,5 @@ const AddButton = styled.button`
     border-color: #4caf50;
   }
 `;
-
-const TodoInput: React.FC = () => {
-  const { register, handleSubmit, reset } = useForm<{ todoText: string }>();
-  const { dispatch } = useTodoContext();
-
-  const onSubmit = debounce((data: { todoText: string }) => {
-    if (data.todoText.trim() !== '') {
-      dispatch({ type: 'ADD_TODO', payload: data.todoText });
-      reset();
-    }
-  }, 100);
-
-  return (
-    <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <InputField
-        {...register('todoText')}
-        placeholder="what needs to be done?"
-      />
-      <AddButton type="submit">✓</AddButton>
-    </FormContainer>
-  );
-};
 
 export default TodoInput;

@@ -2,52 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import useTodoContext from '../hooks/useTodoContext';
 
-const FooterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #f5f5f5;
-  border-top: 1px solid #e0e0e0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #777;
-`;
-
-const ItemsLeft = styled.span`
-  flex: 1;
-  text-align: left;
-`;
-
-const FilterButtons = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const FilterButton = styled.button<{ selected: boolean }>`
-  background: none;
-  border: none;
-  color: ${(props) => (props.selected ? '#333' : '#777')};
-  cursor: pointer;
-  border: ${(props) =>
-    props.selected ? '1px solid rgba(175, 47, 47, 0.2)' : 'none'};
-  border-radius: 3px;
-  padding: 3px 5px;
-`;
-
-const ClearCompletedButton = styled.button`
-  background: none;
-  border: none;
-  color: #777;
-  cursor: pointer;
-  flex: 1;
-  text-align: right;
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-`;
-
 const TodoFooter: React.FC = () => {
   const { state, dispatch } = useTodoContext();
   const { incompleteCount, hasCompletedTodos } = state.todos.reduce(
@@ -104,5 +58,52 @@ const TodoFooter: React.FC = () => {
     </FooterContainer>
   );
 };
+
+// Styled components
+const FooterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #e0e0e0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #777;
+`;
+
+const ItemsLeft = styled.span`
+  flex: 1;
+  text-align: left;
+`;
+
+const FilterButtons = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const FilterButton = styled.button<{ selected: boolean }>`
+  background: none;
+  border: none;
+  color: ${(props) => (props.selected ? '#333' : '#777')};
+  cursor: pointer;
+  border: ${(props) =>
+    props.selected ? '1px solid rgba(175, 47, 47, 0.2)' : 'none'};
+  border-radius: 3px;
+  padding: 3px 5px;
+`;
+
+const ClearCompletedButton = styled.button`
+  background: none;
+  border: none;
+  color: #777;
+  cursor: pointer;
+  flex: 1;
+  text-align: right;
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+`;
 
 export default TodoFooter;

@@ -4,19 +4,6 @@ import { Todo } from '../contexts/TodoContext';
 import TodoItem from './TodoItem';
 import styled from 'styled-components';
 
-const ListContainer = styled.div`
-  padding: 5px; /* Add padding for a better look */
-`;
-
-const NoTodosContainer = styled.h1`
-  font-size: 20px;
-  font-weight: 50;
-  color: #aaa;
-  text-align: center;
-  margin: 20px 0;
-  text-transform: lowercase;
-`;
-
 const TodoList: React.FC = () => {
   const { state } = useTodoContext();
 
@@ -43,5 +30,19 @@ const TodoList: React.FC = () => {
     </ListContainer>
   );
 };
+
+// Styled components
+const ListContainer = styled.div`
+  padding: 5px; /* Add padding for a better look */
+`;
+
+const NoTodosContainer = styled.h1`
+  font-size: 20px;
+  font-weight: 50;
+  color: #aaa;
+  text-align: center;
+  margin: 20px 0;
+  text-transform: lowercase;
+`;
 
 export default TodoList;
