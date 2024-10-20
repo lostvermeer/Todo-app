@@ -90,4 +90,13 @@ const DeleteButton = styled.button`
   }
 `;
 
-export default TodoItem;
+const areEqual = (prevProps: TodoItemProps, nextProps: TodoItemProps) => {
+  return (
+    prevProps.todo.id === nextProps.todo.id &&
+    prevProps.todo.completed === nextProps.todo.completed
+  );
+};
+
+const memoize = React.memo(TodoItem, areEqual);
+
+export default memoize;
