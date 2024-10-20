@@ -1,6 +1,6 @@
 # 📝Todo-app React/ContextAPI/Typescript + Webpack and Styled Components for Mindbox🧠🧠🧠
 
-## To run the application please use GitHub Pages🐙
+## To run the application please use GitHub Pages🐙 [Mindbox todos](https://lostvermeer.github.io/Todo-app/)
 
 or
 clone repository:
